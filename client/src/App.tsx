@@ -1,4 +1,8 @@
+import { WandSparkles } from "lucide-react"
+import { Button } from "./components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
 import { Table, TableBody, TableCell, TableRow } from "./components/ui/table"
+import { Textarea } from "./components/ui/textarea";
 
 function App() {
   const data = [
@@ -14,7 +18,39 @@ function App() {
     <div className="min-h-svh">
       <div className="min-h-svh max-w-xl mx-auto flex flex-col">
         <div>
-          <h1 className="text-2xl font-bold m-3">Lançamentos</h1>
+          <div className="flex justify-between items-center my-5">
+            <h1 className="text-2xl font-bold">Lançamentos</h1>
+            <Dialog>
+              <form>
+                <DialogTrigger asChild>
+                  <Button type="button" size="icon">
+                    <WandSparkles />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Descreva sua despesa</DialogTitle>
+                    <DialogDescription>
+                      Conte em linguagem natural sobre sua despesa.
+                      A IA irá extrair automaticamente as informações e você poderá
+                      revisar antes de salvar.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4">
+                    <div className="grid gap-3">
+                      <Textarea placeholder="Ex: Comprei um lanche no McDonald's por R$ 48,50 hoje de manhã" />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button variant="outline">Cancelar</Button>
+                    </DialogClose>
+                    <Button type="submit">Processar com IA</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </form>
+            </Dialog>
+          </div>
           <Table>
             <TableBody>
               {data.map((item, index) => (
