@@ -1,8 +1,22 @@
 import { WandSparkles } from "lucide-react"
 import { Button } from "./components/ui/button";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./components/ui/dialog";
-import { Table, TableBody, TableCell, TableRow } from "./components/ui/table"
 import { Textarea } from "./components/ui/textarea";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { Table, TableBody, TableCell, TableRow } from "./components/ui/table"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "./components/ui/dialog";
+
+type Inputs = {
+  naturalMessage: string,
+}
 
 function App() {
   const data = [
@@ -14,6 +28,13 @@ function App() {
 
   const totalAmount = data.reduce((sum, item) => sum + item.amount, 0);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
   return (
     <div className="min-h-svh">
       <div className="min-h-svh max-w-xl mx-auto flex flex-col">
@@ -21,13 +42,13 @@ function App() {
           <div className="flex justify-between items-center my-5">
             <h1 className="text-2xl font-bold">Lançamentos</h1>
             <Dialog>
-              <form>
-                <DialogTrigger asChild>
-                  <Button type="button" size="icon">
-                    <WandSparkles />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+              <DialogTrigger asChild>
+                <Button type="button" size="icon">
+                  <WandSparkles />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <DialogHeader>
                     <DialogTitle>Descreva sua despesa</DialogTitle>
                     <DialogDescription>
@@ -36,10 +57,11 @@ function App() {
                       revisar antes de salvar.
                     </DialogDescription>
                   </DialogHeader>
-                  <div className="grid gap-4">
-                    <div className="grid gap-3">
-                      <Textarea placeholder="Ex: Comprei um lanche no McDonald's por R$ 48,50 hoje de manhã" />
-                    </div>
+                  <div className="my-4">
+                    <Textarea
+                      {...register("naturalMessage", { required: true })}
+                      placeholder="Ex: Comprei um lanche no McDonald's por R$ 48,50 hoje de manhã" />
+                    {errors.naturalMessage && <span className="text-red-500 text-sm">Este campo é obrigatório</span>}
                   </div>
                   <DialogFooter>
                     <DialogClose asChild>
@@ -47,8 +69,8 @@ function App() {
                     </DialogClose>
                     <Button type="submit">Processar com IA</Button>
                   </DialogFooter>
-                </DialogContent>
-              </form>
+                </form>
+              </DialogContent>
             </Dialog>
           </div>
           <Table>
@@ -65,11 +87,11 @@ function App() {
           </Table>
         </div>
         <div className="mt-4 flex justify-between items-center border-t p-3">
-          <h2 className="text-xl font-bold m-3">Total das despesas</h2>
+          <h2 className="text-xl font-bold">Total das despesas</h2>
           <span>R$ {totalAmount.toFixed(2)}</span>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 
