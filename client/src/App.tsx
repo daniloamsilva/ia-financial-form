@@ -31,9 +31,13 @@ function App() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    console.log(data);
+  };
 
   return (
     <div className="min-h-svh">
@@ -60,14 +64,18 @@ function App() {
                   <div className="my-4">
                     <Textarea
                       {...register("naturalMessage", { required: true })}
-                      placeholder="Ex: Comprei um lanche no McDonald's por R$ 48,50 hoje de manhã" />
+                      placeholder="Ex: Comprei um lanche no McDonald's por R$ 48,50 hoje de manhã"
+                      disabled={isSubmitting} />
                     {errors.naturalMessage && <span className="text-red-500 text-sm">Este campo é obrigatório</span>}
                   </div>
                   <DialogFooter>
                     <DialogClose asChild>
-                      <Button variant="outline">Cancelar</Button>
+                      <Button variant="outline" disabled={isSubmitting}>Cancelar</Button>
                     </DialogClose>
-                    <Button type="submit">Processar com IA</Button>
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting && <span className="text-sm">Processando...</span>}
+                      {!isSubmitting && <span>Processar com IA</span>}
+                    </Button>
                   </DialogFooter>
                 </form>
               </DialogContent>
