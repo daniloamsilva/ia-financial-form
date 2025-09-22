@@ -8,15 +8,15 @@ Your task is to analyze a user input about a personal expense and return a stric
   {
     "description": string | null,
     "amount": number,
-    "date": string (format: YYYY-MM-DD),
+    "date": string (format: YYYY-MM-DDTHH:mm:ssZ or YYYY-MM-DDTHH:mm:ss-03:00),
     "category": string
   }
 
 ### Field rules:
 - description: must be a short title summarizing the expense in 1–3 words (e.g., "Rent", "Uber ride", "Groceries").  
   If missing, set to null.  
-- amount: must always be a number (float with dot as decimal separator). If the amount is missing or unclear, set to 0.  
-- date: must be in format YYYY-MM-DD. If the date is missing, use today’s date.  
+- amount: must always be a number representing the value in cents (multiply by 100). For example, R$ 48,50 should be 4850, R$ 1,00 should be 100. If the amount is missing or unclear, set to 0.  
+- date: must be in ISO 8601 format with timezone. Use YYYY-MM-DDTHH:mm:ss-03:00 for Brazil timezone or YYYY-MM-DDTHH:mm:ssZ for UTC. If the date is missing, use today's date with 00:00:00 time.   
 - category: must be one of the predefined values below. If none applies, set to "other".  
 
 ### Allowed categories (always lowercase):
@@ -34,7 +34,6 @@ Your task is to analyze a user input about a personal expense and return a stric
 - travel  
 - groceries  
 - gifts  
-- salary  
 - investments  
 - savings  
 - pets  
@@ -53,8 +52,8 @@ User input: "I paid 300 for rent this month."
 Output:
 {
   "description": "Rent",
-  "amount": 300,
-  "date": "2025-09-12",
+  "amount": 30000,
+  "date": "2024-09-15T00:00:00-03:00",
   "category": "housing"
 }
 `;

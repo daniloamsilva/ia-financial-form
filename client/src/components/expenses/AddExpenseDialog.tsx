@@ -25,8 +25,8 @@ export function AddExpenseDialog({ onExpenseAdded }: AddExpenseDialogProps) {
 
     const processedExpense: Expense = {
       description: "McDonald's",
-      amount: 48.50,
-      date: "2025-09-21",
+      amount: 4850,
+      date: "2025-09-21T00:00:00-03:00",
       category: "food"
     };
 
