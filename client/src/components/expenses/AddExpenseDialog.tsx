@@ -16,6 +16,7 @@ interface AddExpenseDialogProps {
 }
 
 export function AddExpenseDialog({ onExpenseAdded }: AddExpenseDialogProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [isReviewStep, setIsReviewStep] = useState(false);
   const [processedData, setProcessedData] = useState<Expense | null>(null);
 
@@ -44,10 +45,11 @@ export function AddExpenseDialog({ onExpenseAdded }: AddExpenseDialogProps) {
     }
     setIsReviewStep(false);
     setProcessedData(null);
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button type="button" size="icon">
           <WandSparkles />
