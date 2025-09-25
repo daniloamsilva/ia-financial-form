@@ -6,14 +6,13 @@ import type { Expense } from "./types/expense";
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([
-    { description: "BigMac", amount: 250.0, date: "2023-10-01", category: "food" },
-    { description: "Passagem de onibus", amount: 150.0, date: "2023-10-02", category: "transport" },
-    { description: "Conta de Luz", amount: 300.0, date: "2023-10-03", category: "utilities" },
-    { description: "Cinema", amount: 400.0, date: "2023-10-04", category: "entertainment" },
+    { description: "BigMac", amount: 250, date: "2023-10-01", category: "food" },
+    { description: "Passagem de onibus", amount: 150, date: "2023-10-02", category: "transport" },
+    { description: "Conta de Luz", amount: 300, date: "2023-10-03", category: "utilities" },
+    { description: "Cinema", amount: 400, date: "2023-10-04", category: "entertainment" },
   ]);
 
   const handleExpenseAdded = (expense: Expense) => {
-    console.log("Nova despesa adicionada:", expense);
     setExpenses(prevExpenses => [...prevExpenses, expense]);
   };
 

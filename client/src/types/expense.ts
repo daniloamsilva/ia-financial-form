@@ -8,3 +8,10 @@ export type Expense = {
 export type ExpenseFormInputs = {
   naturalMessage: string;
 };
+
+export type ExpenseReviewInputs = {
+  description: string;
+  amount: string;
+  date: Date;
+  category: string;
+};

@@ -17,7 +17,7 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
               <TableCell className="font-medium">{item.description}</TableCell>
               <TableCell>{item.date}</TableCell>
               <TableCell>{item.category}</TableCell>
-              <TableCell className="text-right">R$ {item.amount.toFixed(2)}</TableCell>
+              <TableCell className="text-right">R$ {(item.amount / 100).toFixed(2)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -25,7 +25,7 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
 
       <div className="mt-4 flex justify-between items-center border-t p-3">
         <h2 className="text-xl font-bold">Total das despesas</h2>
-        <span>R$ {totalAmount.toFixed(2)}</span>
+        <span>R$ {(totalAmount / 100).toFixed(2)}</span>
       </div>
     </div>
   );

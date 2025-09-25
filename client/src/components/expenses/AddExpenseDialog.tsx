@@ -39,10 +39,8 @@ export function AddExpenseDialog({ onExpenseAdded }: AddExpenseDialogProps) {
     setProcessedData(null);
   };
 
-  const handleSave = () => {
-    if (processedData) {
-      onExpenseAdded?.(processedData);
-    }
+  const handleSave = (editedExpense: Expense) => {
+    onExpenseAdded?.(editedExpense);
     setIsReviewStep(false);
     setProcessedData(null);
     setIsOpen(false);

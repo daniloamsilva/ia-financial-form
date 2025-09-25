@@ -30,7 +30,6 @@ export function CurrencyInput({
         <input
           type="text"
           inputMode="numeric"
-          pattern="[0-9]*"
           value={formatCurrency(value).replace("R$", "").trim()}
           onChange={handleChange}
           className="w-full outline-none text-left text-foreground ml-1 bg-transparent placeholder:text-muted-foreground text-base md:text-sm"
