@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableRow } from "../ui/table";
 import type { Expense } from "../../types/expense";
+import { formatDate } from "../../lib/utils";
 
 interface ExpenseTableProps {
   expenses: Expense[];
@@ -15,7 +16,7 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
           {expenses.map((item, index) => (
             <TableRow key={index}>
               <TableCell className="font-medium">{item.description}</TableCell>
-              <TableCell>{item.date}</TableCell>
+              <TableCell>{formatDate(item.date)}</TableCell>
               <TableCell>{item.category}</TableCell>
               <TableCell className="text-right">R$ {(item.amount / 100).toFixed(2)}</TableCell>
             </TableRow>
