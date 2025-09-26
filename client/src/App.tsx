@@ -6,10 +6,10 @@ import type { Expense } from "./types/expense";
 
 function App() {
   const [expenses, setExpenses] = useState<Expense[]>([
-    { description: "BigMac", amount: 250, date: "2023-10-01", category: "food" },
-    { description: "Passagem de onibus", amount: 150, date: "2023-10-02", category: "transport" },
-    { description: "Conta de Luz", amount: 300, date: "2023-10-03", category: "utilities" },
-    { description: "Cinema", amount: 400, date: "2023-10-04", category: "entertainment" },
+    { description: "Supermercado", amount: 45000, date: "2023-10-01", category: "food" },
+    { description: "Uber para o trabalho", amount: 2800, date: "2023-10-02", category: "transport" },
+    { description: "Conta de energia elétrica", amount: 18500, date: "2023-10-03", category: "utilities" },
+    { description: "Assinatura Netflix", amount: 4490, date: "2023-10-04", category: "entertainment" },
   ]);
 
   const handleExpenseAdded = (expense: Expense) => {
