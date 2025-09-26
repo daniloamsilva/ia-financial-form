@@ -20,18 +20,28 @@ export function AddExpenseDialog({ onExpenseAdded }: AddExpenseDialogProps) {
   const [isReviewStep, setIsReviewStep] = useState(false);
   const [processedData, setProcessedData] = useState<Expense | null>(null);
 
-  const onSubmit: SubmitHandler<ExpenseFormInputs> = async () => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  const onSubmit: SubmitHandler<ExpenseFormInputs> = async (data) => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/parse-expense`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: data.naturalMessage }),
+      });
 
-    const processedExpense: Expense = {
-      description: "McDonald's",
-      amount: 4850,
-      date: "2025-09-21T00:00:00-03:00",
-      category: "food"
-    };
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    setProcessedData(processedExpense);
-    setIsReviewStep(true);
+      const processedExpense: Expense = await response.json();
+
+      setProcessedData(processedExpense);
+      setIsReviewStep(true);
+    } catch (error) {
+      console.error('Error processing expense:', error);
+    }
   };
 
   const handleBack = () => {
